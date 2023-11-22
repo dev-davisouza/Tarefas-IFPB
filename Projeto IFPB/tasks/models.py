@@ -70,7 +70,8 @@ class Task(models.Model):
             mensagem = f"A tarefa {self.name} está próxima do prazo final de sua tarefa"
             # Supondo que o atributo "owner" é uma instância do modelo User que representa o responsável pela tarefa
             destinatarios = [self.owner.email]
-            remetente = "vlogsplayer10@gmail.com"
+            remetente = "youremail@gmail.com"
 
             send_mail(assunto, mensagem, remetente,
                       destinatarios, fail_silently=False)
+
