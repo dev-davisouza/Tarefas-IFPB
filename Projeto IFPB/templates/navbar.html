@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg" style="height: 20px; background-color: white;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'core:home' %}">Tarefas IFPB</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated  %}
+          <li class="nav-item dropdown"> <!-- Tasks Dropdown -->
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Tarefas
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'tasks:add_task' %}">Adicionar Tarefa</a></li>
+              <li><a class="dropdown-item" href="{% url 'tasks:list_tasks' %}">Lista de Tarefas</a></li>
+            </ul>
+          </li>
+  
+          <li class="nav-item dropdown"> <!-- Categories Dropdown -->
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categorias
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'tasks:add_category' %}">Adicionar Categoria</a></li>
+              <li><a class="dropdown-item" href="{% url 'tasks:list_categories' %}">Lista de Categorias</a></li>
+            </ul>
+          </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "accounts:add-user" %}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "accounts:login" %}">Login</a>
+        </li>
+        {% endif %}  
+        </ul>
+  
+        <!-- Controle de usuários -->
+        
+        {% if user.is_authenticated  %}
+        <ul class="navbar-nav"> <!--Nova NavBar-->
+  
+          <!-- Área do usuário! -->
+          <div class="dropdown dropstart">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="material-symbols-outlined" style="font-size: 35px">
+                  person
+                  </span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url "accounts:user_profile" %}">Perfil de Usuário</a></li>
+                <li><a class="dropdown-item" href="{% url "accounts:logout" %}">Logout</a></li>
+                <li><a class="dropdown-item" href="{% url "accounts:change_password" %}">Mudar Senha</a></li> 
+                <li><a class="dropdown-item" href="{% url "accounts:change_profile" %}">Mudar Perfil</a></li>                
+              </ul>
+            </li>  
+          </div>
+          {% endif %}     
+        </ul> <!--Tranquei a NavBar--> 
+      </div>
+    </div>
+  </nav>

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}
+Seja bem vindo! - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+{% load static %}
+<body class="d-flex flex-column h-100">
+    {% include "../partials/messages.html" %}
+    <main class="flex-shrink-0">
+        <!-- Header-->
+        <header class="py-5">
+            <div class="container px-5 pb-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-xxl-5">
+                        <!-- Header text content-->
+                        <div class="text-center text-xxl-start">
+                            <div class="badge rounded-pill text-bg-primary mb-4"><h5>Projetos &middot; Categorias &middot; Tarefas</h5></div>
+                            <div class="fs-3 fw-light text-muted">Posso te ajudar a organizar seus afazeres!</div>
+                            <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Use Agora o Tarefas IFPB!</span></h1>
+                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
+                                <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="{% url 'tasks:list_tasks' %}">Tarefas</a>
+                                <a class="btn btn-dark btn-lg px-5 py-3 fs-6 fw-bolder" href="{% url 'tasks:list_categories' %}">Categorias</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </header>
+        <!-- About Section-->
+        <section class="bg-light py-5">
+            <div class="container px-5">
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-xxl-8">
+                        <div class="text-center my-5">
+                            <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">Sobre mim.</span></h2>
+                            <p class="lead fw-light mb-4">Meu nome é Davi Souza e sou técnico em informática, graduado pelo IFPB - Campus Princesa Isabel.</p>
+                            <div class="col-xxl-7">
+                                <!-- Header profile picture-->
+                                <div class="d-flex justify-content-center mt-5 mt-xxl-0">
+                                    <img class="rounded-circle border border-dark" src="{% static 'img/eu.jpg' %}" width="180px" height="180px" />                        
+                                </div>
+                            </div><br>
+                            <p class="text-muted">Atualmente estudo desenvolvimento web com Django.</p>
+                            <div class="d-flex justify-content-center fs-2 gap-4">
+                                <a class="text-gradient" href="https://www.instagram.com/davisouza.ol/" target="_blank"><i class="bi bi-instagram"></i></a>
+                                <a class="text-gradient" href="https://www.linkedin.com/in/davi-souza-de-oliveira-a03019236/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                                <a class="text-gradient" href="https://github.com/dev-davisouza" target="_blank"><i class="bi bi-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer-->
+    <footer class="bg-white py-4 mt-auto">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto"><div class="small m-0">Copyright &copy; TaskMinder 2023</div></div>
+                <!-- <div class="col-auto">
+                    <span class="mx-1">&middot;</span>
+                    <a class="small" href="#!" target="_blank">Contact</a>
+                </div>-->
+            </div>
+        </div>
+    </footer>
+</body>
+
+{% endblock body %}

@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Perfil de usuário - {{ block.super }}
+{% endblock title %}
+{% block body %}
+
+<div class="shadow p-4 mb-5 bg-body rounded">
+    <div class="container-fluid">
+        {% include 'partials/messages.html' %}
+        <div class="row">
+            <div class="col">             
+                <section>
+                    <div class="container py-5">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card mb-4">
+                                    <div class="card-body text-center">
+
+                                        
+                                        {% if user.profile.photo %}
+                                            <img src="{{user.profile.photo.url}}" alt="avatar" class="rounded-circle img-fluid border border-dark" style="width: 150px;">
+                                        {% else %}
+                                            <img src="{% static 'img/user.webp' %}" alt="avatar" class="rounded-circle img-fluid border border-dark" style="width: 150px;">
+                                        {% endif %}
+                                        <h5 class="my-3"> {{user_profile.user.username }} </h5>
+                                        
+                                        {% if user.profile.profession %}
+                                            <p class="text-muted mb-1">{{user.profile.profession}}</p>
+                                        {% else %}
+                                            &nbsp;
+                                        {% endif %}
+                                        {% if user.profile.address %}
+                                        <p class="text-muted mb-4">{{user.profile.address}}</p>
+                                        {% else %}
+                                            &nbsp;
+                                        {% endif %}
+                                        <div class="d-flex justify-content-center mb-2">
+                                            <a href="{% url 'accounts:change_profile' %}" type="button" class="btn btn-primary btn-sm">Alterar Perfil</a>
+                                            <a href="{% url 'accounts:+info' %}" type="button" class="btn btn-outline-primary ms-1 btn-sm">Informações adicionais</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Nome completo</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0"> {{ user.profile.first_name }} {{ user.profile.last_name }}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Email</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">{{ user.profile.email }}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p class="mb-0">Phone</p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p class="text-muted mb-0">                               
+                                                    {% if user.profile.phone %} 
+                                                        {{ user.profile.phone}}                                  
+                                                </p>
+                                                    {% else %}
+                                                <p class="text-muted mb-0">                               
+                                                    N/A                                  
+                                                </p>
+                                                    {% endif %}               
+                                            </div>
+                                        </div>
+                                        <hr> 
+                                    </div>         
+                                    {% if tasks %}   
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card mb-4 mb-md-0">
+                                                <div class="card-body">
+                                                    <p class="mb-4"><span class="text-primary font-italic me-1">Andamento</span> Tarefas(Prazo)</p>
+                                                    
+                                                    {% for task in tasks %}
+                                                        {% if not task.completed %}
+                                                            <p class="mt-4 mb-1" style="font-size: .77rem;">{{ task }}</p>
+                                                            {% if task.progress >= 80 and task.progress < 100 %}
+                                                                <div class="progress">
+                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{task.progress}}%;" aria-valuenow="{{task.progress}}" aria-valuemin="0" aria-valuemax="100">   {{task.progress}}%</div>
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if task.progress >= 100 %}
+                                                                <div class="progress">
+                                                                    <div class="progress-ba bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> <center> <strong>Prazo Expirado!</strong> </center> </div>
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if task.progress < 80 %}
+                                                                <div class="progress">
+                                                                    <div class="progress-bar" role="progressbar" style="width: {{task.progress}}%;" aria-valuenow="{{task.progress}}" aria-valuemin="0" aria-valuemax="100">{{task.progress}}%</div>
+                                                                </div>                
+                                                            {% endif %}
+                                                        {% endif %} 
+                                                    {% endfor %}
+                                                    
+                                                    
+                                                    <!--
+                                                    <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
+                                                    <div class="progress rounded" style="height: 5px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
+                                                    <div class="progress rounded" style="height: 5px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
+                                                    <div class="progress rounded mb-2" style="height: 5px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div> 
+                                                    -->                       
+                                                </div>
+                                            </div>   
+                                        </div>            
+                                    </div>  
+                                    {% endif %}            
+                                        <!--
+                                        <div class="col-md-6">
+                                            <div class="card mb-4 mb-md-0">
+                                                <div class="card-body">
+                                                    <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status</p>
+                                                    <p class="mb-1" style="font-size: .77rem;">Web Design</p>
+                                                    <div class="progress rounded" style="height: 5px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                                                    <div class="progress rounded" style="height: 5px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
+                                                    <div class="progress rounded" style="height: 5px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
+                                                    <div class="progress rounded" style="height: 5px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
+                                                    <div class="progress rounded mb-2" style="height: 5px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>                                    
+                                        </div>
+                                        -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>         
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

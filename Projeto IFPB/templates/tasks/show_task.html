@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Lista de tarefas - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+    <a style="color: black; " href="{% url 'tasks:list_tasks' %}"><i class="bi bi-arrow-return-left bi-lg " style="font-size: 30px;">Voltar</i></a>    
+    <br><br>
+    <div class="card">
+        <div class="card-header">
+            <h5><strong>{{task}}</strong></h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text"> 
+                <ul> 
+                    <li><strong>Descrição: </strong>{{ task.description }};</li>
+                    <li><strong>Prazo: </strong>{{ task.end_date }};</li>
+                    <li><strong>Data de criação: </strong>{{ task.created_at }};</li>
+                    <li><strong>Prioridade: </strong>{{ task.get_priority_display}}</li>
+                    <li><strong>Categoria(s):
+                        {% for category in task.category.all %} 
+                        </strong>{{ category }};</li>
+                        {% endfor %}
+                    <li><strong>Completa? </strong>{{ task.completed }}</li>                                 
+                </ul>
+            </p>
+        </div>
+    </div>
+
+{% endblock body%}
+    

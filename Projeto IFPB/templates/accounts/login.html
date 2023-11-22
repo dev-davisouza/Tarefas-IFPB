@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Registrar Usuário - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+    <div class="container"><br> 
+        {% include "../partials/messages.html" %}
+        <h1>Login</h1> <br>
+        <div class="row">
+            <div class="col-md-12">
+                <form action="." method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Nome de Usuário:</label>
+                        <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Insira seu nome de usuário">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Senha:</label>
+                        <input type="password" class="form-control" name="password" placeholder="Insira sua Senha">
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block mt-5" type="submit" >Entrar</button><br><br>
+                    <a href="{% url 'accounts:password_reset' %}"><strong>Esqueceu sua senha? Recupere-a aqui!</strong></a>
+                </form>   
+            </div>
+        </div>
+    </div>
+    
+{% endblock body %}

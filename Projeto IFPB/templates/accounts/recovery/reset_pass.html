@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Recuperação de senha - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+<h1>Recuperação de senha</h1>
+<form method="post" action="{% url 'accounts:password_reset' %}">
+    {% csrf_token %}
+    <label for="email">E-mail:</label>
+    <input type="email" name="email" required>
+    <button class="btn btn-secondary btn-sm" type="submit">Enviar e-mail de recuperação de senha</button>
+</form>
+{% endblock body %}

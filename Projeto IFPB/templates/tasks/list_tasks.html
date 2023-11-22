@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Lista de tarefas - {{ block.super }}
+{% endblock title %}
+
+{% block body %}
+{% if tasks %}
+<div class="container-fluid"><br>
+    <h1 style="font-weight: bold;">∙ Lista de tarefas</h1>
+   
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover table-bordered" style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+                <thead>
+                    <tr>
+                        <th scope="col">Tarefas</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Prazo</th>
+                        <th scope="col">Prioridade</th>
+                        <th scope="col" style="width: 260px;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                        {% if task.end_date < today %}
+                            <tr class="table-danger">
+                                <td><a href="{% url 'tasks:show_task' task.id %}">{{ task.name }}</a> </td>
+                                <td>{{ task.description}}</td>
+                                <td>{{ task.end_date}}</td>
+                                <td>{{ task.get_priority_display }}</td>
+                                <td>
+                                    {% if task.completed == True %}
+                                        <a href="{% url 'tasks:descomplete_task' task.id %}"
+                                        class="btn btn-outline-warning btn-sm me-1">Reverter</a>
+                                    {% else %}
+                                        <a href="{% url 'tasks:complete_task' task.id %}"
+                                        class="btn btn-outline-success btn-sm me-1">Concluir</a>
+                                    {% endif %}
+                                    
+                                    
+                                    <a href="{% url 'tasks:edit_task' task.id %}" class="btn btn-primary btn-sm">Editar</a>
+                                    <a href="{% url 'tasks:delete_task' task.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                        <tr>
+                            <td><a href="{% url 'tasks:show_task' task.id %}">{{ task.name }}</a> </td>
+                            <td>{{ task.description}}</td>
+                            <td>{{ task.end_date}}</td>
+                            <td>{{ task.get_priority_display }}</td>
+                            <td>
+                                {% if task.completed == True %}
+                                    <a href="{% url 'tasks:descomplete_task' task.id %}"
+                                    class="btn btn-outline-warning btn-sm me-1">Reverter</a>
+                                {% else %}
+                                    <a href="{% url 'tasks:complete_task' task.id %}"
+                                    class="btn btn-outline-success btn-sm me-1">Concluir</a>
+                                {% endif %}
+                                
+                                
+                                <a href="{% url 'tasks:edit_task' task.id %}" class="btn btn-primary btn-sm">Editar</a>
+                                <a href="{% url 'tasks:delete_task' task.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<h1>Você não possui tarefas!</h1>
+<h5><a href="{% url 'tasks:add_task' %}">Crie uma agora!</a></h5>
+{% endif %}
+
+
+
+{% endblock body %}

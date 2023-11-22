@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Editar Categoria - {{ block.super }}
+{% endblock title %}  
+
+{% block body %}
+    <div class="container">
+        <h1>Editar Categoria</h1>
+        {% include 'partials/messages.html' %}
+        <div class="row">
+            <div class="col-md-12">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit" class="btn btn-lg btn-primary btn-block mt-5" >Salvar</button><br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}    
